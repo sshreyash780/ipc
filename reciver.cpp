@@ -15,8 +15,7 @@ using namespace std;
 int wait_open(const char* name, int flags) {
     mqd_t mq;
     while (true) {
-        mq = smq_open(name, flags);
-        ?
+        mq = smq_open(name, flags);
 
         if (mq==-1||errno == ENOENT) {
             cout << "⏳ Waiting for queue " << name << "...\n";
