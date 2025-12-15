@@ -5,7 +5,8 @@
 #include "PThreadPool.h"
 #include "Taskq.h"
 #include "print.h"
-#include "taskf.h"
+#include "taskf.h"
+
 
 using namespace std;
 
@@ -14,19 +15,15 @@ using namespace std;
 int wait_open(const char* name, int flags) {
     mqd_t mq;
     while (true) {
-        mq = smq_open(name, flags);
-
-        if (mq==-1||errno == ENOENT) {
+        mq = smq_open(name, flags);
+        if (mq != -1) return mq;
+        if (errno == ENOENT) {
             cout << "⏳ Waiting for queue " << name << "...\n";
             sleep(1);
             continue;
-        }else 
-               break;
-     }
- return mq;
-
+        }
+    }
 }
-
 
 
 
@@ -101,3 +98,4 @@ Task t(msg);
 
     return 0;
 }
+
