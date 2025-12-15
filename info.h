@@ -42,9 +42,9 @@ double cpuUsage(const CpuStat& a, const CpuStat& b) {
 //cpuload
 void printCPULoad(double cpu) {
     int bars = cpu / 5;
-    std::cout <<"Cpu Load : ";
+    std::cout <<"Cpu Load :  [";
     for (int i = 0; i < 20; i++)
-        std::cout << (i < bars ? "▓" : "░");
-    std::cout << "  " << cpu << "%\n";
+        std::cout << (i < bars ? "▓" : " ");
+    std::cout << "]  " << cpu << "%\n";
 }
 #endif 
