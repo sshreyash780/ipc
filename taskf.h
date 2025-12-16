@@ -1,3 +1,4 @@
+
 #ifndef TASKF_H
 #define TASKF_H
 
@@ -14,7 +15,7 @@
 #include "print.h"
 
 using namespace std;
-
+ 
 /* --------------------------------------------------
    SIMPLE BUT MEANINGFUL TASKS
    -------------------------------------------------- */
@@ -266,4 +267,3 @@ inline function<void(string&)> gett(string &topic) {
 }
 
 #endif // TASKF_H
-
