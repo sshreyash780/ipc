@@ -7,7 +7,7 @@
 #include <unistd.h>
 using namespace std;
 
-struct TaskQ { 
+struct TaskQ { // For message queue
     int priority;
     int ind;
     bool cs;
@@ -15,26 +15,37 @@ struct TaskQ {
     char topic[300];
     char payload[300];
     uint8_t checksum;
-
+ 
     TaskQ() {}
+    TaskQ(pid_t sid,
+      const std::string &t,
+      const std::string &pay,
+      int id,
+      bool b,
+      int p = -1)
+{
+    // 🔑 FIX 1: zero-initialize entire struct
+    memset(this, 0, sizeof(TaskQ));
 
-    TaskQ(pid_t sid, const std::string &t, const std::string &pay, int id,bool b,int p=-1) {
-        priority = p;
-        senderPid = sid;
-        ind = id;
-        cs=b;
+    senderPid = sid;
+    ind       = id;
+    cs        = b;
+    priority  = p;
 
-        // Encrypt and store topic
-        strncpy(topic, t.c_str(), sizeof(topic));
-        xorEncrypt(topic, sizeof(topic));
+    // 🔑 FIX 2: safe copy + termination
+    strncpy(topic, t.c_str(), sizeof(topic) - 1);
+    topic[sizeof(topic) - 1] = '\0';
 
-        // Encrypt and store payload
-        strncpy(payload, pay.c_str(), sizeof(payload));
-        xorEncrypt(payload, sizeof(payload));
+    strncpy(payload, pay.c_str(), sizeof(payload) - 1);
+    payload[sizeof(payload) - 1] = '\0';
 
-        // Compute checksum of encrypted data
-        checksum = xorChecksum(topic) ^ xorChecksum(payload);
-    }
+    // 🔑 FIX 3: checksum on PLAIN data
+    checksum = xorChecksum(topic) ^ xorChecksum(payload);
+
+    // 🔑 FIX 4: encrypt only AFTER checksum
+    xorEncrypt(topic, sizeof(topic));
+    xorEncrypt(payload, sizeof(payload));
+}
 
     // XOR encryption/decryption
     void xorEncrypt(char* data, size_t size) {
