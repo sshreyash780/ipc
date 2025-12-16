@@ -266,3 +266,4 @@ inline function<void(string&)> gett(string &topic) {
 }
 
 #endif // TASKF_H
+
