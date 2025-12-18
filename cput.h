@@ -20,6 +20,7 @@ inline ThreadCpuTime threadCpuNow() {
     ThreadCpuTime t{};
     clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t.ts);
     return t;
+
 }
 
 /* Convert difference between two snapshots to milliseconds */
@@ -30,6 +31,7 @@ inline double threadCpuMs(const ThreadCpuTime& start,
     long nsec = end.ts.tv_nsec - start.ts.tv_nsec;
 
     return sec * 1000.0 + nsec / 1e6;
+
 }
 
 #endif // CPUT_H
