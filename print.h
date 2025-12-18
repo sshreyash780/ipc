@@ -44,6 +44,7 @@ inline void printKV(const std::string& k, double v, const std::string& unit="") 
     std::cout << std::left << std::setw(12) << k << ": "
               << std::fixed << std::setprecision(2)
               << v << unit << "\n";
+
 }
 
 inline void printFooter() {
