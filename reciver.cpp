@@ -22,6 +22,7 @@ int wait_open(const char* name, int flags) {
             sleep(1);
             continue;
         }
+
     }
 }
 
@@ -40,6 +41,7 @@ int main() {
     if (resMq == -1) {
         cout<<"82 resmq is -1 in rec.cpp"<<endl;
         return 1;
+
     }
 
     printHeader("RECEIVER SERVICE STARTED");
