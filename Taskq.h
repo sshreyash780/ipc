@@ -6,7 +6,7 @@
 #include <cstdint>   
 #include <unistd.h>
 using namespace std;
-
+  
 struct TaskQ { // For message queue
     int priority;
     int ind;
